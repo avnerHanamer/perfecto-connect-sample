@@ -1,0 +1,17 @@
+
+apply plugin: 'java'
+
+apply plugin: 'application'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    testCompile 'io.appium:java-client:4.1.2'
+    testCompile 'junit:junit:4.12'
+}
+
+test{
+    systemProperties project.properties.subMap(["c", "s", "b"])
+}
