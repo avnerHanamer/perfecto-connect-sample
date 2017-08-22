@@ -33,7 +33,7 @@ public class PerfectoConnect extends PerfectoConnectBase {
         AppiumDriver driver = createAppiumDriver("Android", "DBBABA96");
 
         try {
-            driver.get("http://localhost:" + LocalServer.getPort());
+            driver.get(server.getHost());
             driver.navigate().refresh();
 
             WebElement element = driver.findElement(By.xpath("/html/body/pre"));

@@ -23,7 +23,12 @@ public class LocalServer {
     public void stop() throws Exception {
         server.stop();
     }
-    public static int getPort(){
+
+    private static int getPort(){
         return 7070;
+    }
+
+    public String getHost(){
+        return "http://localhost:" + getPort();
     }
 }
