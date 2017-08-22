@@ -1,4 +1,5 @@
 
+import conf.IConfiguration;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
@@ -19,22 +20,20 @@ import static io.appium.java_client.remote.MobileCapabilityType.PLATFORM_NAME;
 public class PerfectoConnectBase {
     private static final String SECURITY_TOKEN = "securityToken";
     private static final String TUNNEL_ID = "tunnelId";
-    private String cloudURL;
-    private String securityToken;
+    protected IConfiguration config;
 
-    public PerfectoConnectBase(String cloudURL, String securityToken) {
-        this.cloudURL = cloudURL;
-        this.securityToken = securityToken;
+    public PerfectoConnectBase(IConfiguration config) {
+        this.config = config;
     }
 
-    protected AppiumDriver createAppiumDriver(String os, String deviceId, String tunnelId) throws MalformedURLException {
-        String baseURL = "http://" + cloudURL;
+    protected AppiumDriver createAppiumDriver(String os, String deviceId) throws MalformedURLException {
+        String baseURL = "http://" + config.getCloudURL();
         URL url = new URL(baseURL + "/nexperience/perfectomobile/wd/hub");
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability(SECURITY_TOKEN, securityToken);
+        capabilities.setCapability(SECURITY_TOKEN, config.getOfflineToken());
         capabilities.setCapability(PLATFORM_NAME, os);
         capabilities.setCapability(DEVICE_NAME, deviceId);
-        capabilities.setCapability(TUNNEL_ID, tunnelId);
+        capabilities.setCapability(TUNNEL_ID, config.getTunnelId());
         AppiumDriver<WebElement> driver = os.equalsIgnoreCase("Android") ? new AndroidDriver<>(url , capabilities) : new IOSDriver<>(url, capabilities);
 
         try {
@@ -44,17 +43,5 @@ public class PerfectoConnectBase {
         }
 
         return driver;
-    }
-
-    protected String getTunnelId() throws IOException {
-        URL url = this.getClass().getResource("/tunnelId");
-        File tunnelIdFile = new File(url.getFile());
-
-        String tunnelId;
-        try(BufferedReader reader = new BufferedReader(new FileReader(tunnelIdFile))){
-            tunnelId = reader.readLine();
-        }
-
-        return tunnelId;
     }
 }
