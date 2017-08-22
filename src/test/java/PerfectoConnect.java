@@ -1,6 +1,7 @@
 
 import com.perfecto.connect.sample.server.server.LocalServer;
 import conf.IConfiguration;
+import conf.JenkinsConfiguration;
 import conf.LocalConfiguration;
 import io.appium.java_client.AppiumDriver;
 import org.junit.*;
@@ -8,20 +9,23 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.io.*;
+import java.util.UUID;
 
 public class PerfectoConnect extends PerfectoConnectBase {
 
     private static LocalServer server;
+    private static String message;
 
 
     public PerfectoConnect() {
-        super(new LocalConfiguration());
+        super(new JenkinsConfiguration());
     }
 
     @BeforeClass
     public static void beforeClass() throws Exception {
         server = new LocalServer();
-        server.start(LocalConfiguration.getMessage());
+        message = UUID.randomUUID().toString();
+        server.start(message);
     }
 
     @Test
@@ -33,7 +37,7 @@ public class PerfectoConnect extends PerfectoConnectBase {
             driver.navigate().refresh();
 
             WebElement element = driver.findElement(By.xpath("/html/body/pre"));
-            Assert.assertEquals(LocalConfiguration.getMessage(), element.getText());
+            Assert.assertEquals(message, element.getText());
 
         } finally {
             driver.quit();

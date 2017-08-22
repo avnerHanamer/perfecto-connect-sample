@@ -7,7 +7,6 @@ public class LocalConfiguration implements IConfiguration {
     private String cloudURL;
     private String offlineToken;
     private String tunnelId;
-    private static String message = UUID.randomUUID().toString();
 
     public LocalConfiguration() {
         cloudURL = "demo.perfectomobile.com";
@@ -28,9 +27,5 @@ public class LocalConfiguration implements IConfiguration {
     @Override
     public String getTunnelId() {
         return tunnelId;
-    }
-
-    public static String getMessage() {
-        return message;
     }
 }

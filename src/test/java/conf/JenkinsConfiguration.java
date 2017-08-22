@@ -7,7 +7,6 @@ public class JenkinsConfiguration implements IConfiguration {
     private String cloudURL;
     private String offlineToken;
     private String tunnelId;
-    private static String message = UUID.randomUUID().toString();
 
     public JenkinsConfiguration() {
         cloudURL = System.getProperty("c");
@@ -31,7 +30,4 @@ public class JenkinsConfiguration implements IConfiguration {
     }
 
 
-    public static String getMessage() {
-        return message;
-    }
 }
