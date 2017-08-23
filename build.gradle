@@ -16,5 +16,5 @@ dependencies {
 }
 
 test{
-    systemProperties project.properties.subMap(["c", "s", "b"])
+    systemProperties project.properties.subMap(["c", "s", "t"])
 }

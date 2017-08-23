@@ -44,4 +44,22 @@ public class PerfectoConnectBase {
 
         return driver;
     }
+
+    protected AppiumDriver createAppiumDriver(String os) throws MalformedURLException {
+        String baseURL = "http://" + config.getCloudURL();
+        URL url = new URL(baseURL + "/nexperience/perfectomobile/wd/hub");
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability(SECURITY_TOKEN, config.getOfflineToken());
+        capabilities.setCapability(PLATFORM_NAME, os);
+        capabilities.setCapability(TUNNEL_ID, config.getTunnelId());
+        AppiumDriver<WebElement> driver = os.equalsIgnoreCase("Android") ? new AndroidDriver<>(url , capabilities) : new IOSDriver<>(url, capabilities);
+
+        try {
+            Thread.sleep(9000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return driver;
+    }
 }
