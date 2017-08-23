@@ -5,6 +5,9 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 
+import java.net.Inet4Address;
+import java.net.UnknownHostException;
+
 public class LocalServer {
 
     private final Server server;
@@ -28,7 +31,16 @@ public class LocalServer {
         return 7070;
     }
 
-    public String getHost(){
-        return "http://localhost:" + getPort();
+    private static String getIP(){
+        try {
+            return Inet4Address.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            return "localhost";
+        }
     }
+
+    public String getHost(){
+        return "http://" + getIP() + ":" + getPort();
+    }
+
 }
