@@ -33,15 +33,15 @@ public class PerfectoConnect extends PerfectoConnectBase {
 
     @Test
     public void sample() throws IOException, InterruptedException, ExecutionException {
-        boolean status = runAppiumTest("Android", "E0CF1F7B");
+        boolean status = runAppiumTest("Android", null,"NA-US-BOS","^[678].*");
 
         Assert.assertEquals(true, status);
     }
 
-    private Boolean runAppiumTest(String os, String deviceName) {
+    private Boolean runAppiumTest(String os, String deviceName,String location, String osVersion) {
         AppiumDriver driver = null;
         try {
-            driver = createAppiumDriver(os, deviceName);
+            driver = createAppiumDriver(os, deviceName,location, osVersion);
             String host = server.getHost();
             System.out.println("navigate to " + host + " on " + os + " device " + deviceName);
             driver.get(host);
