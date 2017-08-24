@@ -13,9 +13,7 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import static io.appium.java_client.remote.MobileCapabilityType.AUTOMATION_NAME;
-import static io.appium.java_client.remote.MobileCapabilityType.DEVICE_NAME;
-import static io.appium.java_client.remote.MobileCapabilityType.PLATFORM_NAME;
+import static io.appium.java_client.remote.MobileCapabilityType.*;
 
 public class PerfectoConnectBase {
     private static final String SECURITY_TOKEN = "securityToken";
@@ -26,13 +24,17 @@ public class PerfectoConnectBase {
         this.config = config;
     }
 
-    protected AppiumDriver createAppiumDriver(String os, String deviceId) throws MalformedURLException {
+    protected AppiumDriver createAppiumDriver(String os, String deviceId,String location, String osVersion) throws MalformedURLException {
         String baseURL = "http://" + config.getCloudURL();
         URL url = new URL(baseURL + "/nexperience/perfectomobile/wd/hub");
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability(SECURITY_TOKEN, config.getOfflineToken());
         capabilities.setCapability(PLATFORM_NAME, os);
-        capabilities.setCapability(DEVICE_NAME, deviceId);
+
+        if (deviceId!=null) capabilities.setCapability(DEVICE_NAME, deviceId);
+        if (location!=null) capabilities.setCapability("location", location);
+        if (osVersion!=null) capabilities.setCapability(PLATFORM_VERSION, osVersion);
+
         capabilities.setCapability(TUNNEL_ID, config.getTunnelId());
         AppiumDriver<WebElement> driver = os.equalsIgnoreCase("Android") ? new AndroidDriver<>(url , capabilities) : new IOSDriver<>(url, capabilities);
 
