@@ -1,7 +1,6 @@
 
 import com.perfecto.connect.sample.server.server.LocalServer;
 import conf.JenkinsConfiguration;
-import conf.LocalConfiguration;
 import io.appium.java_client.AppiumDriver;
 import org.apache.xpath.operations.Bool;
 import org.junit.*;
