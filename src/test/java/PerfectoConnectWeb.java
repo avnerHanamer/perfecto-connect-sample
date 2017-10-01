@@ -31,7 +31,7 @@ public class PerfectoConnectWeb extends PerfectoConnectBase {
         server.start(message);
     }
 
-    @Test
+//    @Test
     public void sample() throws IOException, InterruptedException, ExecutionException {
         boolean status = runSeleniumTest("Windows", "10","Chrome");
 
