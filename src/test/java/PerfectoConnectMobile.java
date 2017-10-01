@@ -22,7 +22,7 @@ public class PerfectoConnectMobile extends PerfectoConnectBase {
     private static String message;
 
     public PerfectoConnectMobile() {
-        super(new LocalConfiguration());
+        super(new JenkinsConfiguration());
     }
 
     @BeforeClass
