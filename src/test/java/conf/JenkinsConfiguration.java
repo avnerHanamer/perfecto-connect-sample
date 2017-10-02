@@ -1,7 +1,5 @@
 package conf;
 
-import java.util.UUID;
-
 public class JenkinsConfiguration implements IConfiguration {
 
     private String cloudURL;

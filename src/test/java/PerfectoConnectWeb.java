@@ -1,11 +1,8 @@
 import com.perfecto.connect.sample.server.server.LocalServer;
 import conf.JenkinsConfiguration;
-import conf.LocalConfiguration;
-import io.appium.java_client.AppiumDriver;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -29,6 +26,11 @@ public class PerfectoConnectWeb extends PerfectoConnectBase {
         server = new LocalServer();
         message = UUID.randomUUID().toString();
         server.start(message);
+    }
+
+    @AfterClass
+    public static void afterClass() throws Exception {
+        server.stop();
     }
 
 //    @Test
@@ -57,11 +59,5 @@ public class PerfectoConnectWeb extends PerfectoConnectBase {
                 driver.quit();
             }
         }
-    }
-
-
-    @AfterClass
-    public static void afterClass() throws Exception{
-        server.stop();
     }
 }

@@ -1,20 +1,17 @@
-
 import com.perfecto.connect.sample.server.server.LocalServer;
 import conf.JenkinsConfiguration;
-import conf.LocalConfiguration;
 import io.appium.java_client.AppiumDriver;
-import org.apache.xpath.operations.Bool;
-import org.junit.*;
+import org.junit.AfterClass;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import java.io.*;
+import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutionException;
 
 public class PerfectoConnectMobile extends PerfectoConnectBase {
 
@@ -30,6 +27,11 @@ public class PerfectoConnectMobile extends PerfectoConnectBase {
         server = new LocalServer();
         message = UUID.randomUUID().toString();
         server.start(message);
+    }
+
+    @AfterClass
+    public static void afterClass() throws Exception {
+        server.stop();
     }
 
     @Test
@@ -67,11 +69,5 @@ public class PerfectoConnectMobile extends PerfectoConnectBase {
                 driver.quit();
             }
         }
-    }
-
-
-    @AfterClass
-    public static void afterClass() throws Exception{
-        server.stop();
     }
 }
