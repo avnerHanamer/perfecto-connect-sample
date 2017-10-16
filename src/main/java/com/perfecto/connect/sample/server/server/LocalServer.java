@@ -17,18 +17,8 @@ public class LocalServer {
 
     }
 
-    public void start(String msg) throws Exception {
-        ServletContextHandler handler = new ServletContextHandler(server, "/");
-        handler.addServlet(new ServletHolder(new MainRequest(msg)), "/");
-        server.start();
-    }
-
-    public void stop() throws Exception {
-        server.stop();
-    }
-
     private static int getPort(){
-        return 7070;
+        return 6060;
     }
 
     private static String getIP(){
@@ -37,6 +27,16 @@ public class LocalServer {
         } catch (UnknownHostException e) {
             return "localhost";
         }
+    }
+
+    public void start(String msg) throws Exception {
+        ServletContextHandler handler = new ServletContextHandler(server, "/");
+        handler.addServlet(new ServletHolder(new MainRequest(msg)), "/");
+        server.start();
+    }
+
+    public void stop() throws Exception {
+        server.stop();
     }
 
     public String getHost(){
