@@ -1,5 +1,4 @@
 import com.perfecto.connect.sample.server.server.LocalServer;
-import conf.JenkinsConfiguration;
 import io.appium.java_client.AppiumDriver;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -9,7 +8,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
@@ -17,10 +15,6 @@ public class PerfectoConnectMobile extends PerfectoConnectBase {
 
     private static LocalServer server;
     private static String message;
-
-    public PerfectoConnectMobile() {
-        super(new JenkinsConfiguration());
-    }
 
     @BeforeClass
     public static void beforeClass() throws Exception {
@@ -36,7 +30,7 @@ public class PerfectoConnectMobile extends PerfectoConnectBase {
 
     @Test
     public void sample() throws IOException, InterruptedException, ExecutionException {
-        boolean status = runAppiumTest("Android", null,"NA-US-BOS","^[678].*");
+        boolean status = runAppiumTest("Android", "E0CF1F7B", "NA-US-BOS", "^[678].*");
 
         Assert.assertEquals(true, status);
     }
@@ -62,7 +56,8 @@ public class PerfectoConnectMobile extends PerfectoConnectBase {
 //            WebElement element = driver.findElement(By.xpath("/html/body/h1"));
 //            Assert.assertEquals("Hi from Nashat", element.getText());
             return true;
-        } catch (MalformedURLException e) {
+        } catch (Exception e) {
+            System.out.println("e = " + e);
             return false;
         } finally {
             if(driver != null) {

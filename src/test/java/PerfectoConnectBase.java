@@ -1,5 +1,6 @@
 
 import conf.IConfiguration;
+import conf.JenkinsConfiguration;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
@@ -17,8 +18,8 @@ public class PerfectoConnectBase {
     private static final String TUNNEL_ID = "tunnelId";
     protected IConfiguration config;
 
-    public PerfectoConnectBase(IConfiguration config) {
-        this.config = config;
+    public PerfectoConnectBase() {
+        this.config = new JenkinsConfiguration();
     }
 
     protected AppiumDriver createAppiumDriver(String os, String deviceId,String location, String osVersion) throws MalformedURLException {

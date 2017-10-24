@@ -1,8 +1,8 @@
 import com.perfecto.connect.sample.server.server.LocalServer;
-import conf.JenkinsConfiguration;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -17,10 +17,6 @@ public class PerfectoConnectWeb extends PerfectoConnectBase {
     private static LocalServer server;
     private static String message;
 
-    public PerfectoConnectWeb() {
-        super(new JenkinsConfiguration());
-    }
-
     @BeforeClass
     public static void beforeClass() throws Exception {
         server = new LocalServer();
@@ -33,7 +29,7 @@ public class PerfectoConnectWeb extends PerfectoConnectBase {
         server.stop();
     }
 
-//    @Test
+    @Test
     public void sample() throws IOException, InterruptedException, ExecutionException {
         boolean status = runSeleniumTest("Windows", "10","Chrome");
 
