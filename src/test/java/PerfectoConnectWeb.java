@@ -47,6 +47,8 @@ public class PerfectoConnectWeb extends PerfectoConnectBase {
             WebElement element = driver.findElement(By.xpath("/html/body/pre"));
             Assert.assertEquals(message, element.getText());
 
+            String reportURL = (String) driver.getCapabilities().getCapability("testGridReportUrl");
+            System.out.println("Report URL: " + reportURL);
             return true;
         } catch (MalformedURLException e) {
             return false;

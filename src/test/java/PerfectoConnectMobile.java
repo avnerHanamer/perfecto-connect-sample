@@ -30,7 +30,7 @@ public class PerfectoConnectMobile extends PerfectoConnectBase {
 
     @Test
     public void sample() throws IOException, InterruptedException, ExecutionException {
-        boolean status = runAppiumTest("Android", "E0CF1F7B", "NA-US-BOS", "^[678].*");
+        boolean status = runAppiumTest("Android", null, "NA-US-BOS", "^[678].*");
 
         Assert.assertEquals(true, status);
     }

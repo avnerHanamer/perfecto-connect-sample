@@ -1,4 +1,3 @@
-
 import conf.IConfiguration;
 import conf.JenkinsConfiguration;
 import io.appium.java_client.AppiumDriver;
@@ -57,6 +56,7 @@ public class PerfectoConnectBase {
         capabilities.setCapability(PLATFORM_VERSION, osVersion);
         capabilities.setCapability(BROWSER_NAME, browserName);
         capabilities.setCapability("browserVersion", "latest");
+//        capabilities.setCapability("location", "EU Frankfurt");
 
         capabilities.setCapability(TUNNEL_ID, config.getTunnelId());
         RemoteWebDriver driver = new RemoteWebDriver(url, capabilities);
