@@ -1,4 +1,4 @@
-package com.perfecto.connect.sample.server.server;
+package com.perfecto.connect.sample.server;
 
 import org.eclipse.jetty.http.HttpStatus;
 

@@ -1,4 +1,4 @@
-import com.perfecto.connect.sample.server.server.LocalServer;
+import com.perfecto.connect.sample.server.LocalServer;
 import io.appium.java_client.AppiumDriver;
 import org.junit.AfterClass;
 import org.junit.Assert;

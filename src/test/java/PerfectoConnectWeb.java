@@ -1,4 +1,5 @@
-import com.perfecto.connect.sample.server.server.LocalServer;
+import com.perfecto.connect.sample.retry.Retry;
+import com.perfecto.connect.sample.server.LocalServer;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -9,6 +10,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.time.Duration;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
@@ -31,12 +33,13 @@ public class PerfectoConnectWeb extends PerfectoConnectBase {
 
     @Test
     public void sample() throws IOException, InterruptedException, ExecutionException {
-        boolean status = runSeleniumTest("Windows", "10","Chrome");
-
-        Assert.assertEquals(true, status);
+        Retry.perform(() -> {
+            runSeleniumTest("Windows", "10", "Chrome");
+            return (Void) null;
+        }, 5, Duration.ofSeconds(2));
     }
 
-    private Boolean runSeleniumTest(String os, String osVersion, String browserName) {
+    private void runSeleniumTest(String os, String osVersion, String browserName) throws MalformedURLException {
         RemoteWebDriver driver = null;
         try {
             driver = createSeleniumDriver(os, osVersion, browserName);
@@ -49,11 +52,8 @@ public class PerfectoConnectWeb extends PerfectoConnectBase {
 
             String reportURL = (String) driver.getCapabilities().getCapability("testGridReportUrl");
             System.out.println("Report URL: " + reportURL);
-            return true;
-        } catch (MalformedURLException e) {
-            return false;
         } finally {
-            if(driver != null) {
+            if (driver != null) {
                 driver.quit();
             }
         }
