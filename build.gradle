@@ -22,4 +22,12 @@ test{
         suites "src/test/resources/testng.xml"
         includeGroups System.properties['type'] != null ? System.properties['type'] : 'all'
     }
+
+    beforeTest { descriptor ->
+        logger.lifecycle("Running test: " + descriptor)
+    }
+
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
 }
