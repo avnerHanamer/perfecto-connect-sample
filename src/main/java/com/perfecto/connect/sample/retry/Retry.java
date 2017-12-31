@@ -19,7 +19,7 @@ public class Retry {
                     System.out.println("Retry finished");
                     throw e;
                 }
-
+                e.printStackTrace();
                 System.out.println("Trying one more time");
                 try {
                     Thread.sleep(duration.toMillis());

@@ -2,25 +2,53 @@ package com.perfecto.connect.sample;
 
 import com.perfecto.connect.sample.conf.IConfiguration;
 import com.perfecto.connect.sample.conf.JenkinsConfiguration;
+import com.perfecto.connect.sample.server.LocalServer;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.UUID;
 
 import static io.appium.java_client.remote.MobileCapabilityType.*;
 
 public class PerfectoConnectBase {
     private static final String SECURITY_TOKEN = "securityToken";
     private static final String TUNNEL_ID = "tunnelId";
+    protected String message;
+    protected LocalServer server;
     protected IConfiguration config;
 
     public PerfectoConnectBase() {
         this.config = new JenkinsConfiguration();
+    }
+
+    @BeforeClass(alwaysRun = true)
+    public void beforeClass() {
+        try {
+            server = new LocalServer();
+            message = UUID.randomUUID().toString();
+            System.out.println("Starting local server");
+            server.start(message);
+        } catch (Exception e) {
+            System.out.println("Can't start local server");
+        }
+    }
+
+    @AfterClass(alwaysRun = true)
+    public void afterClass() {
+        try {
+            System.out.println("Stopping local server");
+            server.stop();
+        } catch (Exception e) {
+            System.out.println("Can't stop local server");
+        }
     }
 
     protected AppiumDriver createAppiumDriver(String os, String deviceId,String location, String osVersion) throws MalformedURLException {
