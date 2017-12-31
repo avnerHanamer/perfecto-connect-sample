@@ -1,5 +1,7 @@
-import conf.IConfiguration;
-import conf.JenkinsConfiguration;
+package com.perfecto.connect.sample;
+
+import com.perfecto.connect.sample.conf.IConfiguration;
+import com.perfecto.connect.sample.conf.JenkinsConfiguration;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;

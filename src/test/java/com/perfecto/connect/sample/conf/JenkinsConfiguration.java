@@ -1,4 +1,4 @@
-package conf;
+package com.perfecto.connect.sample.conf;
 
 public class JenkinsConfiguration implements IConfiguration {
 

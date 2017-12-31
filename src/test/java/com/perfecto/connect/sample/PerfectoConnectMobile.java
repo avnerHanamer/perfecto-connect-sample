@@ -1,20 +1,19 @@
-import com.perfecto.connect.sample.retry.Retry;
+package com.perfecto.connect.sample;
+
 import com.perfecto.connect.sample.server.LocalServer;
+import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.time.Duration;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
-public class PerfectoConnectWeb extends PerfectoConnectBase {
+public class PerfectoConnectMobile extends PerfectoConnectBase {
 
     private static LocalServer server;
     private static String message;
@@ -31,29 +30,39 @@ public class PerfectoConnectWeb extends PerfectoConnectBase {
         server.stop();
     }
 
-    @Test(groups = {"all", "web"})
+    @Test(groups = {"all", "mobile"})
     public void sample() throws IOException, InterruptedException, ExecutionException {
-        Retry.perform(() -> {
-            runSeleniumTest("Windows", "10", "Chrome");
-            return (Void) null;
-        }, 5, Duration.ofSeconds(2));
+        boolean status = runAppiumTest("Android", null, null, "^[678].*");
+
+        Assert.assertEquals(true, status);
     }
 
-    private void runSeleniumTest(String os, String osVersion, String browserName) throws MalformedURLException {
-        RemoteWebDriver driver = null;
+    private Boolean runAppiumTest(String os, String deviceName,String location, String osVersion) {
+        AppiumDriver driver = null;
         try {
-            driver = createSeleniumDriver(os, osVersion, browserName);
+            driver = createAppiumDriver(os, deviceName,location, osVersion);
             String host = server.getHost();
-            System.out.println("navigate to " + host);
+            System.out.println("navigate to " + host + " on " + os + " device ");
             driver.get(host);
+            driver.navigate().refresh();
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
             WebElement element = driver.findElement(By.xpath("/html/body/pre"));
             Assert.assertEquals(message, element.getText());
 
-            String reportURL = (String) driver.getCapabilities().getCapability("testGridReportUrl");
-            System.out.println("Report URL: " + reportURL);
+//            WebElement element = driver.findElement(By.xpath("/html/body/h1"));
+//            Assert.assertEquals("Hi from Nashat", element.getText());
+            return true;
+        } catch (Exception e) {
+            System.out.println("e = " + e);
+            return false;
         } finally {
-            if (driver != null) {
+            if(driver != null) {
                 driver.quit();
             }
         }

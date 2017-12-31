@@ -1,4 +1,4 @@
-package conf;
+package com.perfecto.connect.sample.conf;
 
 /**
  * Created by nashati on 22/08/2017.
