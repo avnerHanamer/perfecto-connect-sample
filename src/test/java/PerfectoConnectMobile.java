@@ -1,11 +1,11 @@
 import com.perfecto.connect.sample.server.LocalServer;
 import io.appium.java_client.AppiumDriver;
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -17,20 +17,20 @@ public class PerfectoConnectMobile extends PerfectoConnectBase {
     private static String message;
 
     @BeforeClass
-    public static void beforeClass() throws Exception {
+    public void beforeClass() throws Exception {
         server = new LocalServer();
         message = UUID.randomUUID().toString();
         server.start(message);
     }
 
     @AfterClass
-    public static void afterClass() throws Exception {
+    public void afterClass() throws Exception {
         server.stop();
     }
 
-    @Test
+    @Test(groups = {"all", "mobile"})
     public void sample() throws IOException, InterruptedException, ExecutionException {
-        boolean status = runAppiumTest("Android", null, "NA-US-BOS", "^[678].*");
+        boolean status = runAppiumTest("Android", null, null, "^[678].*");
 
         Assert.assertEquals(true, status);
     }

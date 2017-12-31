@@ -9,12 +9,17 @@ repositories {
 
 dependencies {
     testCompile 'io.appium:java-client:4.1.2'
-    testCompile 'junit:junit:4.12'
+    testCompile 'org.testng:testng:6.11'
 
     compile 'org.eclipse.jetty:jetty-server:9.4.6.v20170531'
     compile 'org.eclipse.jetty:jetty-servlet:9.4.6.v20170531'
 }
 
 test{
-    systemProperties project.properties.subMap(["c", "s", "t"])
+    systemProperties project.properties.subMap(["c", "s", "t", "type"])
+
+    useTestNG {
+        suites "src/test/resources/testng.xml"
+        includeGroups System.properties['type'] != null ? System.properties['type'] : 'all'
+    }
 }
