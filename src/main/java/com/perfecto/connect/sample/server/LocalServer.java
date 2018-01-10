@@ -7,26 +7,30 @@ import org.eclipse.jetty.servlet.ServletHolder;
 
 import java.net.Inet4Address;
 import java.net.UnknownHostException;
+import java.util.Random;
 
 public class LocalServer {
 
     private final Server server;
+    private String address;
+    private int port;
 
     public LocalServer() {
-        server = new Server(getPort());
-
-    }
-
-    private static int getPort(){
-        return 6060;
-    }
-
-    private static String getIP(){
         try {
-            return Inet4Address.getLocalHost().getHostAddress();
+            address = Inet4Address.getLocalHost().getHostAddress();
         } catch (UnknownHostException e) {
-            return "localhost";
+            address = "localhost";
         }
+        port = 6060 + new Random().nextInt(9);
+        server = new Server(getPort());
+    }
+
+    private int getPort() {
+        return port;
+    }
+
+    private String getAddress() {
+        return address;
     }
 
     public void start(String msg) throws Exception {
@@ -40,7 +44,7 @@ public class LocalServer {
     }
 
     public String getHost(){
-        return "http://" + getIP() + ":" + getPort();
+        return "http://" + getAddress() + ":" + getPort();
     }
 
 }
