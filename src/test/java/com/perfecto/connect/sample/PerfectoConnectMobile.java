@@ -14,7 +14,7 @@ public class PerfectoConnectMobile extends PerfectoConnectBase {
     @Test(groups = {"all", "mobile"})
     public void sample() throws Exception {
         Retry.perform(() -> {
-            runAppiumTest("Android", null, null, "^[678].*");
+            runAppiumTest("Android", null, null, "^[789].*");
             return (Void) null;
         }, 5, Duration.ofMinutes(10));
     }
