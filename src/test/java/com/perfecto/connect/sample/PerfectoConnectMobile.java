@@ -26,7 +26,7 @@ public class PerfectoConnectMobile extends PerfectoConnectBase {
             String host = server.getHost();
             System.out.println("navigate to " + host + " on " + os + " device ");
             driver.get(host);
-            driver.navigate().refresh();
+//            driver.navigate().refresh();
 
             try {
                 Thread.sleep(1000);
