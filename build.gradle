@@ -20,12 +20,11 @@ test{
 
     useTestNG {
         suites "src/test/resources/testng.xml"
-        includeGroups project.getPro['type'] != null ? System.properties['type'] : 'all'
+        includeGroups System.properties['type'] != null ? System.properties['type'] : 'all'
     }
 
     beforeTest { descriptor ->
         logger.lifecycle("Running test: " + descriptor)
-        logger.lifecycle("type: " + System.properties['type'])
     }
 
     testLogging {
