@@ -11,12 +11,14 @@ import java.time.Duration;
 
 public class PerfectoConnectMobile extends PerfectoConnectBase {
 
+    private static final int RETRIES = 7;
+
     @Test(groups = {"all", "mobile", "Android"})
     public void sampleAndroid() throws Exception {
         Retry.perform(() -> {
             runAppiumTest("Android", null, null, null);
             return (Void) null;
-        }, 5, Duration.ofSeconds(10));
+        }, RETRIES, Duration.ofSeconds(10));
     }
 
     @Test(groups = {"all", "mobile", "IOS"})
@@ -24,7 +26,7 @@ public class PerfectoConnectMobile extends PerfectoConnectBase {
         Retry.perform(() -> {
             runAppiumTest("ios", null, null, null);
             return (Void) null;
-        }, 5, Duration.ofSeconds(10));
+        }, RETRIES, Duration.ofSeconds(10));
     }
     
     private Boolean runAppiumTest(String os, String deviceName, String location, String osVersion) throws Exception {
