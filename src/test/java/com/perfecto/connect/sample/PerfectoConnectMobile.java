@@ -11,14 +11,22 @@ import java.time.Duration;
 
 public class PerfectoConnectMobile extends PerfectoConnectBase {
 
-    @Test(groups = {"all", "mobile"})
-    public void sample() throws Exception {
+    @Test(groups = {"all", "mobile", "Android"})
+    public void sampleAndroid() throws Exception {
         Retry.perform(() -> {
-            runAppiumTest("Android", null, null, "^[789].*");
+            runAppiumTest("Android", null, null, null);
             return (Void) null;
-        }, 5, Duration.ofMinutes(10));
+        }, 5, Duration.ofSeconds(10));
     }
 
+    @Test(groups = {"all", "mobile", "IOS"})
+    public void sampleIos() throws Exception {
+        Retry.perform(() -> {
+            runAppiumTest("ios", null, null, null);
+            return (Void) null;
+        }, 5, Duration.ofSeconds(10));
+    }
+    
     private Boolean runAppiumTest(String os, String deviceName, String location, String osVersion) throws Exception {
         AppiumDriver driver = null;
         try {

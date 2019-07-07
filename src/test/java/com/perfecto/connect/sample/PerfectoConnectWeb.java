@@ -20,7 +20,7 @@ public class PerfectoConnectWeb extends PerfectoConnectBase {
         Retry.perform(() -> {
             runSeleniumTest("Windows", "10", "Chrome");
             return (Void) null;
-        }, 5, Duration.ofMinutes(10));
+        }, 5, Duration.ofSeconds(10));
     }
 
     private void runSeleniumTest(String os, String osVersion, String browserName) throws MalformedURLException {
