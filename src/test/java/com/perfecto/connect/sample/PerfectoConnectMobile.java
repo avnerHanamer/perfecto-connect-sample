@@ -24,17 +24,18 @@ public class PerfectoConnectMobile extends PerfectoConnectBase {
     @Test(groups = {"all", "mobile", "IOS"})
     public void sampleIos() throws Exception {
         Retry.perform(() -> {
-            runAppiumTest("ios", null, null, "12.*");
+            runAppiumTest("ios", null, null, ".*");
             return (Void) null;
         }, RETRIES, Duration.ofSeconds(10));
     }
-    
+
     private Boolean runAppiumTest(String os, String deviceName, String location, String osVersion) throws Exception {
         AppiumDriver driver = null;
         try {
-            driver = createAppiumDriver(os, deviceName,location, osVersion);
+            driver = createAppiumDriver(os, deviceName, location, osVersion);
             String host = server.getHost();
-            System.out.println("navigate to " + host + " on " + os + " device ");
+            Object name = driver.getCapabilities().getCapability("deviceName");
+            System.out.println("navigate to " + host + " on " + os + " device " + name);
             driver.get(host);
 //            driver.navigate().refresh();
 
@@ -51,7 +52,7 @@ public class PerfectoConnectMobile extends PerfectoConnectBase {
 //            Assert.assertEquals("Hi from Nashat", element.getText());
             return true;
         } finally {
-            if(driver != null) {
+            if (driver != null) {
                 driver.quit();
             }
         }
