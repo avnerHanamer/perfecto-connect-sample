@@ -23,15 +23,13 @@ pipeline{
             steps{
                 sh "wget http://downloads.connect.perfectomobile.com/clients/Perfecto-Connect-linux.tar -O Perfecto-Connect-linux.tar"
                 sh "tar -xf Perfecto-Connect-linux.tar"
+                env.TUNNEL_ID=sh(script:"./perfectoconnect start -c ${params.CLOUD_URL} -s ${params.SECURITY_TOKEN} --logfile=log.log -lv", returnStdout: true)
             }
         }
         stage('Tests'){
             steps{
                 retry(3){
-                    script{
-                        env.TUNNEL_ID=sh(script:"./perfectoconnect start -c ${params.CLOUD_URL} -s ${params.SECURITY_TOKEN} --logfile=log.log -lv", returnStdout: true)
-                        sh "gradle clean test -Pc=${params.CLOUD_URL} -Pt=${env.TUNNEL_ID} -Ps=${params.SECURITY_TOKEN} --rerun-tasks -i -Dtype=web"
-                    }
+                    sh "gradle clean test -Pc=${params.CLOUD_URL} -Pt=${env.TUNNEL_ID} -Ps=${params.SECURITY_TOKEN} --rerun-tasks -i -Dtype=web"
                 }
             }
         }
