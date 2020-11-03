@@ -28,6 +28,7 @@ public class PerfectoConnectWeb extends PerfectoConnectBase {
         RemoteWebDriver driver = null;
         String [] locations = {"US East", "EU Frankfurt", "AP Sydney"};
         for (String location: locations) {
+            System.out.println("Running in " + location);
             try {
                 driver = createSeleniumDriver(os, osVersion, browserName, location);
                 String host = server.getHost();
