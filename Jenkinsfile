@@ -29,7 +29,7 @@ pipeline{
             steps{
                 retry(3){
                     script{
-                        env.TUNNEL_ID=sh(script:"./perfectoconnect start -c ${params.CLOUD_URL} -s ${params.SECURITY_TOKEN} --logfile=log.log -lv)", returnStdout: true)
+                        env.TUNNEL_ID=sh(script:"./perfectoconnect start -c ${params.CLOUD_URL} -s ${params.SECURITY_TOKEN} --logfile=log.log -lv"), returnStdout: true)
                         sh "./gradlew clean test -Pc=${params.CLOUD_URL} -Pt=${env.TUNNEL_ID} -Ps=${params.SECURITY_TOKEN} --rerun-tasks -i -Dtype=web"
                     }
                 }
