@@ -78,17 +78,7 @@ public class PerfectoConnectBase {
         return driver;
     }
 
-    protected RemoteWebDriver createSeleniumDriver(String os, String osVersion, String browserName) throws MalformedURLException {
-        String location = System.getProperty("location", "");
-        if (location == null || location.trim() == "" || location.contains("US")){
-            location = "US East";
-        }
-        else if (location.contains("EU")){
-            location = "EU Frankfurt";
-        }
-        else{
-            location = "AP Sydney";
-        }
+    protected RemoteWebDriver createSeleniumDriver(String os, String osVersion, String browserName, String location) throws MalformedURLException {
         URL url = new URL(config.getCloudURL() + "/nexperience/perfectomobile/wd/hub/fast");
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability(SECURITY_TOKEN, config.getOfflineToken());

@@ -26,20 +26,23 @@ public class PerfectoConnectWeb extends PerfectoConnectBase {
 
     private void runSeleniumTest(String os, String osVersion, String browserName) throws MalformedURLException {
         RemoteWebDriver driver = null;
-        try {
-            driver = createSeleniumDriver(os, osVersion, browserName);
-            String host = server.getHost();
-            System.out.println("navigate to " + host);
-            driver.get(host);
+        String [] locations = {"US East", "EU Frankfurt", "AP Sydney"};
+        for (String location: locations) {
+            try {
+                driver = createSeleniumDriver(os, osVersion, browserName, location);
+                String host = server.getHost();
+                System.out.println("navigate to " + host);
+                driver.get(host);
 
-            WebElement element = driver.findElement(By.xpath("/html/body/pre"));
-            Assert.assertEquals(message, element.getText());
-            driver.getScreenshotAs(OutputType.FILE);
-            String reportURL = (String) driver.getCapabilities().getCapability("testGridReportUrl");
-            System.out.println("Report URL: " + reportURL);
-        } finally {
-            if (driver != null) {
-                driver.quit();
+                WebElement element = driver.findElement(By.xpath("/html/body/pre"));
+                Assert.assertEquals(message, element.getText());
+                driver.getScreenshotAs(OutputType.FILE);
+                String reportURL = (String) driver.getCapabilities().getCapability("testGridReportUrl");
+                System.out.println("Report URL: " + reportURL);
+            } finally {
+                if (driver != null) {
+                    driver.quit();
+                }
             }
         }
     }

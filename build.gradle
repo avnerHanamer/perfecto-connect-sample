@@ -19,6 +19,7 @@ test{
     systemProperties project.properties.subMap(["c", "s", "t", "type"])
 
     useTestNG {
+        testLogging.showStandardStreams = true
         suites "src/test/resources/testng.xml"
         includeGroups System.properties['type'] != null ? System.properties['type'] : 'all'
     }
