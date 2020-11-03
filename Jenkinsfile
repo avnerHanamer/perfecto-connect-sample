@@ -31,7 +31,7 @@ pipeline{
         stage('Tests'){
             steps{
                 retry(3){
-                    sh "gradle clean test -Pc=${params.CLOUD_URL} -Pt=${env.TUNNEL_ID} -Ps=${params.SECURITY_TOKEN} --rerun-tasks -i -Dtype=web"
+                    sh "./gradlew clean test -Dtype=web -Pc=${params.CLOUD_URL} -Ps=${params.SECURITY_TOKEN} -Pt=${env.TUNNEL_ID}"
                 }
             }
         }
