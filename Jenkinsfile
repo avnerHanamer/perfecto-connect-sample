@@ -23,7 +23,9 @@ pipeline{
             steps{
                 sh "wget http://downloads.connect.perfectomobile.com/clients/Perfecto-Connect-linux.tar -O Perfecto-Connect-linux.tar"
                 sh "tar -xf Perfecto-Connect-linux.tar"
-                env.TUNNEL_ID=sh(script:"./perfectoconnect start -c ${params.CLOUD_URL} -s ${params.SECURITY_TOKEN} --logfile=log.log -lv", returnStdout: true)
+                script{
+                    env.TUNNEL_ID=sh(script:"./perfectoconnect start -c ${params.CLOUD_URL} -s ${params.SECURITY_TOKEN} --logfile=log.log -lv", returnStdout: true)
+                }
             }
         }
         stage('Tests'){
