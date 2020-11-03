@@ -2,6 +2,7 @@ package com.perfecto.connect.sample;
 
 import com.perfecto.connect.sample.retry.Retry;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
@@ -33,7 +34,7 @@ public class PerfectoConnectWeb extends PerfectoConnectBase {
 
             WebElement element = driver.findElement(By.xpath("/html/body/pre"));
             Assert.assertEquals(message, element.getText());
-
+            driver.getScreenshotAs(OutputType.FILE);
             String reportURL = (String) driver.getCapabilities().getCapability("testGridReportUrl");
             System.out.println("Report URL: " + reportURL);
         } finally {
