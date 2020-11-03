@@ -28,28 +28,24 @@ pipeline{
                 }
             }
         }
-        stage('Tests'){
-            parallel{
-                stage('US'){
-                    steps{
-                        retry(3){
-                            sh "./gradlew clean test -Dlocation=US -Dtype=web -Pc=${params.CLOUD_URL} -Ps=${params.SECURITY_TOKEN} -Pt=${env.TUNNEL_ID}"
-                        }
-                    }
+        stage('US'){
+            steps{
+                retry(3){
+                    sh "./gradlew clean test -Dlocation=US -Dtype=web -Pc=${params.CLOUD_URL} -Ps=${params.SECURITY_TOKEN} -Pt=${env.TUNNEL_ID}"
                 }
-                stage('EU'){
-                    steps{
-                        retry(3){
-                            sh "./gradlew clean test -Dlocation=EU -Dtype=web -Pc=${params.CLOUD_URL} -Ps=${params.SECURITY_TOKEN} -Pt=${env.TUNNEL_ID}"
-                        }
-                    }
+            }
+        }
+        stage('EU'){
+            steps{
+                retry(3){
+                    sh "./gradlew clean test -Dlocation=EU -Dtype=web -Pc=${params.CLOUD_URL} -Ps=${params.SECURITY_TOKEN} -Pt=${env.TUNNEL_ID}"
                 }
-                stage('AU'){
-                    steps{
-                        retry(3){
-                            sh "./gradlew clean test -Dlocation=AU -Dtype=web -Pc=${params.CLOUD_URL} -Ps=${params.SECURITY_TOKEN} -Pt=${env.TUNNEL_ID}"
-                        }
-                    }
+            }
+        }
+        stage('AU'){
+            steps{
+                retry(3){
+                    sh "./gradlew clean test -Dlocation=AU -Dtype=web -Pc=${params.CLOUD_URL} -Ps=${params.SECURITY_TOKEN} -Pt=${env.TUNNEL_ID}"
                 }
             }
         }
