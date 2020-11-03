@@ -38,7 +38,6 @@ pipeline{
     }
     post{
         always{
-            publishHTML([allowMissing: true, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'build/reports/tests/test', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: 'HTML Report'])
             cleanWs()
         }
     }
