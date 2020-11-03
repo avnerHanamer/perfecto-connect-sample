@@ -18,10 +18,7 @@ public class PerfectoConnectWeb extends PerfectoConnectBase {
 
     @Test(groups = {"all", "web"})
     public void sample() throws IOException, InterruptedException, ExecutionException {
-        Retry.perform(() -> {
-            runSeleniumTest("Windows", "10", "Chrome");
-            return (Void) null;
-        }, 5, Duration.ofSeconds(10));
+        runSeleniumTest("Windows", "10", "Chrome");
     }
 
     private void runSeleniumTest(String os, String osVersion, String browserName) throws MalformedURLException {
@@ -32,14 +29,14 @@ public class PerfectoConnectWeb extends PerfectoConnectBase {
             try {
                 driver = createSeleniumDriver(os, osVersion, browserName, location);
                 String host = server.getHost();
-                System.out.println("navigate to " + host);
+                System.out.println("Navigate to " + host);
                 driver.get(host);
 
                 WebElement element = driver.findElement(By.xpath("/html/body/pre"));
                 Assert.assertEquals(message, element.getText());
                 driver.getScreenshotAs(OutputType.FILE);
                 String reportURL = (String) driver.getCapabilities().getCapability("testGridReportUrl");
-                System.out.println("Report URL: " + reportURL);
+                System.out.println("Done, Report URL: " + reportURL);
             } finally {
                 if (driver != null) {
                     driver.quit();
