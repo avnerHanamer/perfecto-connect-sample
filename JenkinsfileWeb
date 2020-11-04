@@ -43,5 +43,11 @@ pipeline{
         always{
             cleanWs()
         }
+        unsuccessful{
+            slackSend color: '#FF0000', channel: '#perfecto_con_alerts', message: "${env.JOB_NAME} - #${env.BUILD_NUMBER} Failed", teamDomain: 'reportium'
+        }
+        fixed{
+            slackSend color: '#BDFFC3', channel: '#perfecto_con_alerts', message: "${env.JOB_NAME} - #${env.BUILD_NUMBER} Back to normal", teamDomain: 'reportium'
+        }
     }
 }
