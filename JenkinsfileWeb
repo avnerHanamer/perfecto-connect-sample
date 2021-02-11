@@ -1,5 +1,5 @@
 pipeline{
-    agent {label 'serverless'}
+    agent {label 'devtools-sanity'}
     options {
         timestamps()
         buildDiscarder(logRotator(numToKeepStr: '30', artifactNumToKeepStr: '30'))
