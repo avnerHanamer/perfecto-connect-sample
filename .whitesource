@@ -3,6 +3,9 @@
     "configMode": "AUTO",
     "configExternalURL": "",
     "projectToken": "",
+    "enableLicenseViolations": "true",
+    "displayLicenseViolations": "true",
+    "enableIaC": "true",
     "baseBranches": []
   },
   "scanSettingsSAST": {
@@ -28,14 +31,11 @@
   "remediateSettings": {
     "workflowRules": {
       "enabled": true
-    }
-  },
-   "imageSettings":{
-       "imageTracing":{
-           "enableImageTracingPR": false,
-           "addRepositoryCoordinate": false,
-           "addDockerfilePath": false,
-           "addMendIdentifier": false
-       }
-   }
+      
+    },
+  "extends": [
+      "config:base", 
+      "github>whitesource/merge-confidence:beta"
+  ]
+  }
 }
